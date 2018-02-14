@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import ToolbarItem from './ToolbarItem';
+import { DragSource } from 'react-dnd';
 
 const ToolbarHandle = styled.div`
   background: darkgray;
@@ -24,11 +25,15 @@ const template2 = {
 
 class Toolbar extends React.Component {
   render() {
-    return (
+    const { connectDragSource, connectDragPreview, isDragging } = this.props
+
+    if (isDragging) return null;
+
+    return connectDragPreview(
       <div className={this.props.className}>
-        <ToolbarHandle />
-        <ToolbarItem onAddField={this.props.onAddField} fieldTemplate={template1}>Some Field</ToolbarItem>
-        <ToolbarItem onAddField={this.props.onAddField} fieldTemplate={template2}>Another Field</ToolbarItem>
+        {connectDragSource(<div><ToolbarHandle /></div>)}
+        <ToolbarItem onAddField={this.props.onAddField} fieldTemplate={template1}>Text</ToolbarItem>
+        <ToolbarItem onAddField={this.props.onAddField} fieldTemplate={template2}>Checkbox</ToolbarItem>
       </div>
     )
   }
@@ -39,9 +44,21 @@ const StyledToolbar = styled(Toolbar) `
   border: 1px solid black;
   box-shadow: 3px 3px 5px darkgray;
   position: absolute;
-  top: 20px;
-  left: 20px;
+  top: ${props => props.top || 20}px;
+  left: ${props => props.left || 20}px;
   width: 150px;
 `
-
-export default StyledToolbar;
+const toolbarDragSource = {
+  beginDrag(props, monitor) {
+    return {}
+  },
+  endDrag(props, monitor) {
+    const dropResult = monitor.getDropResult()
+    props.onMove({ top: dropResult.top + props.top, left: dropResult.left + props.left })
+  }
+}
+export default DragSource("toolbar", toolbarDragSource, (connect, monitor) => ({
+  connectDragSource: connect.dragSource(),
+  connectDragPreview: connect.dragPreview(),
+  isDragging: monitor.isDragging(),
+}))(StyledToolbar)

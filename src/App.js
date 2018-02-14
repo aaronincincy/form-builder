@@ -18,7 +18,11 @@ injectGlobal`
 
 class App extends Component {
   state = {
-    fields: []
+    fields: [],
+    toolbar: {
+      top: 20,
+      left: 20
+    }
   }
 
   nextId = 1
@@ -35,6 +39,15 @@ class App extends Component {
     }))
   }
 
+  handleToolbarMove = dest => {
+    this.setState({
+      toolbar: {
+        top: dest.top,
+        left: dest.left
+      }
+    })
+  }
+
   render() {
     return (
       <DragDropContextProvider backend={Html5Backend}>
@@ -44,7 +57,7 @@ class App extends Component {
               <FieldMarker key={field.fieldId} {...field} />
             ))}
           </Page>
-          <Toolbar onAddField={this.handleAddField} />
+          <Toolbar top={this.state.toolbar.top} left={this.state.toolbar.left} onAddField={this.handleAddField} onMove={this.handleToolbarMove} />
         </Workspace>
       </DragDropContextProvider>
     );
