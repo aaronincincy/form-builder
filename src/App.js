@@ -40,8 +40,8 @@ class App extends Component {
       <DragDropContextProvider backend={Html5Backend}>
         <Workspace>
           <Page page={{ id: 1 }}>
-            {this.state.fields.map((field, index) => (
-              <FieldMarker {...field} />
+            {this.state.fields.map((field) => (
+              <FieldMarker key={field.fieldId} {...field} />
             ))}
           </Page>
           <Toolbar onAddField={this.handleAddField} />
