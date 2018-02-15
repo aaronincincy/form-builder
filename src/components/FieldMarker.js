@@ -17,13 +17,13 @@ const FieldMarker = styled.div`
   `}
 `
 const fieldSource = {
-  beginDrag(props) {
+  beginDrag: (props) => {
     return {
       fieldId: props.fieldId
     }
   },
 
-  endDrag(props, monitor) {
+  endDrag: (props, monitor) => {
     const { fieldId } = monitor.getItem()
     const dropResult = monitor.getDropResult()
 

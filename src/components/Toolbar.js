@@ -47,10 +47,10 @@ const StyledToolbar = styled(Toolbar) `
 StyledToolbar.displayName = 'StyledToolbar'
 
 const toolbarDragSource = {
-  beginDrag(props, monitor) {
+  beginDrag: (props, monitor) => {
     return {}
   },
-  endDrag(props, monitor) {
+  endDrag: (props, monitor) => {
     const dropResult = monitor.getDropResult()
     props.onMove({ top: dropResult.top + props.top, left: dropResult.left + props.left })
   }

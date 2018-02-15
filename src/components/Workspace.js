@@ -17,7 +17,7 @@ const DroppableWorkspace = ({ connectDropTarget, ...rest }) => (
 )
 
 const toolbarTarget = {
-  drop(props, monitor, component) {
+  drop: (props, monitor, component) => {
     const { x: left, y: top } = monitor.getDifferenceFromInitialOffset()
     return {
       top,

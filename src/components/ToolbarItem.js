@@ -16,13 +16,13 @@ const ToolbarItem = styled.div`
 `
 
 const templateSource = {
-  beginDrag(props) {
+  beginDrag: (props) => {
     return {
       template: props.fieldTemplate
     }
   },
 
-  endDrag(props, monitor) {
+  endDrag: (props, monitor) => {
     const item = monitor.getItem()
     const dropResult = monitor.getDropResult()
 

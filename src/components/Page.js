@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import { DropTarget } from 'react-dnd';
 
 const pageTarget = {
-  drop(props, monitor, component) {
-    const { x: offsetLeft, y: offsetTop } = component.pageRef.getBoundingClientRect()
+  drop: (props, monitor, component) => {
+    const { left: offsetLeft, top: offsetTop } = component.pageRef.getBoundingClientRect()
     const { x: left, y: top } = monitor.getClientOffset()
     const { x: differenceLeft, y: differenceTop } = monitor.getDifferenceFromInitialOffset()
     return {
