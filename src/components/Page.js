@@ -4,12 +4,19 @@ import { DropTarget } from 'react-dnd';
 
 const pageTarget = {
   drop(props, monitor, component) {
-    const { x: offsetLeft, y: offsetTop } = component.page.getBoundingClientRect()
+    const { x: offsetLeft, y: offsetTop } = component.pageRef.getBoundingClientRect()
     const { x: left, y: top } = monitor.getClientOffset()
+    const { x: differenceLeft, y: differenceTop } = monitor.getDifferenceFromInitialOffset()
     return {
       page: props.page,
-      top: top - offsetTop,
-      left: left - offsetLeft
+      position: {
+        top: top - offsetTop,
+        left: left - offsetLeft
+      },
+      offset: {
+        top: differenceTop,
+        left: differenceLeft
+      }
     }
   }
 }
@@ -24,15 +31,18 @@ const Page = styled.div`
   overflow: hidden;
 `
 
+Page.displayName = 'Page'
+
 class DroppablePage extends React.Component {
   render() {
     const { connectDropTarget, ...rest } = this.props
-    return connectDropTarget(
-      <div>
-        <Page innerRef={r => this.page = r} {...rest} />
-      </div>
+    return (
+      <Page innerRef={r => {
+        this.pageRef = r
+        connectDropTarget(r)
+      }} {...rest} />
     );
   }
 }
 
-export default DropTarget('fieldTemplate', pageTarget, connect => ({ connectDropTarget: connect.dropTarget() }))(DroppablePage);
+export default DropTarget(['fieldTemplate', 'field'], pageTarget, connect => ({ connectDropTarget: connect.dropTarget() }))(DroppablePage);

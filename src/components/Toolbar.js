@@ -48,6 +48,8 @@ const StyledToolbar = styled(Toolbar) `
   left: ${props => props.left || 20}px;
   width: 150px;
 `
+StyledToolbar.displayName = 'StyledToolbar'
+
 const toolbarDragSource = {
   beginDrag(props, monitor) {
     return {}

@@ -10,16 +10,15 @@ const Workspace = styled.div`
   box-sizing: border-box;
 `
 
-const DroppableWorkspace = ({ connectDropTarget, ...rest }) => connectDropTarget(
-  <div style={{ height: '100%' }}>
-    <Workspace {...rest} />
-  </div>
+Workspace.displayName = "Workspace"
+
+const DroppableWorkspace = ({ connectDropTarget, ...rest }) => (
+  <Workspace innerRef={r => connectDropTarget(r)} {...rest} />
 )
 
 const toolbarTarget = {
   drop(props, monitor, component) {
     const { x: left, y: top } = monitor.getDifferenceFromInitialOffset()
-    console.log(top, left)
     return {
       top,
       left

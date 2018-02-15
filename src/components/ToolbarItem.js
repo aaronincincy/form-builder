@@ -32,10 +32,8 @@ const templateSource = {
   },
 }
 
-const DraggableToolbarItem = ({ connectDragSource, ...rest }) => connectDragSource(
-  <div>
-    <ToolbarItem {...rest} />
-  </div>
+const DraggableToolbarItem = ({ connectDragSource, ...rest }) => (
+  <ToolbarItem innerRef={r => connectDragSource(r)} {...rest} />
 )
 
 export default DragSource("fieldTemplate", templateSource, (connect, monitor) => ({

@@ -32,11 +32,28 @@ class App extends Component {
       fields: [...state.fields, {
         ...field.template,
         pageId: destination.page.id,
-        top: destination.top - field.template.height / 2,
-        left: destination.left - field.template.width / 2,
+        top: destination.position.top - field.template.height / 2,
+        left: destination.position.left - field.template.width / 2,
         fieldId: `field_${this.nextId++}`
       }]
     }))
+  }
+
+  handleMoveField = (fieldId, destination) => {
+    this.setState(state => {
+      const target = state.fields.find(f => f.fieldId === fieldId)
+      const targetIndex = state.fields.indexOf(target)
+
+      var newArray = [...state.fields]
+      newArray[targetIndex] = {
+        ...target,
+        top: destination.offset.top + target.top,
+        left: destination.offset.left + target.left
+      }
+      return {
+        fields: newArray
+      }
+    })
   }
 
   handleToolbarMove = dest => {
@@ -54,7 +71,7 @@ class App extends Component {
         <Workspace>
           <Page page={{ id: 1 }}>
             {this.state.fields.map((field) => (
-              <FieldMarker key={field.fieldId} {...field} />
+              <FieldMarker onMoveField={this.handleMoveField} key={field.fieldId} {...field} />
             ))}
           </Page>
           <Toolbar top={this.state.toolbar.top} left={this.state.toolbar.left} onAddField={this.handleAddField} onMove={this.handleToolbarMove} />
