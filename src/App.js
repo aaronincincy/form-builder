@@ -41,7 +41,7 @@ class App extends Component {
 
   handleMoveField = (fieldId, destination) => {
     this.setState(state => {
-      const target = state.fields.find(f => f.fieldId === fieldId)
+      const target = state.fields.filter(f => f.fieldId === fieldId)[0]
       const targetIndex = state.fields.indexOf(target)
 
       var newArray = [...state.fields]

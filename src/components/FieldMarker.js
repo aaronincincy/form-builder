@@ -10,6 +10,7 @@ const FieldMarker = styled.div`
   height: ${props => props.height}px;
   background: lightblue;
   opacity: .5;
+  visibility: ${props => props.isDragging ? 'hidden' : 'visible'};
 
   ${props => props.selected && css`
     outline: 1px solid darkblue;
@@ -35,7 +36,6 @@ const fieldSource = {
 class DraggableFieldMarker extends React.Component {
   render() {
     const { connectDragSource, isDragging, ...rest } = this.props
-    if (isDragging) return null
     return (
       <FieldMarker innerRef={r => connectDragSource(r)} isDragging={isDragging} {...rest} />
     )

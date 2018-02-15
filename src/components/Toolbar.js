@@ -8,7 +8,6 @@ const ToolbarHandle = styled.div`
   height: 10px;
   border: 2px outset darkgray;
   box-sizing: border-box;
-  cursor: move;
 `
 
 const template1 = {
@@ -26,11 +25,8 @@ const template2 = {
 class Toolbar extends React.Component {
   render() {
     const { connectDragSource, connectDragPreview, isDragging } = this.props
-
-    if (isDragging) return null;
-
     return connectDragPreview(
-      <div className={this.props.className}>
+      <div className={this.props.className} style={{ visibility: isDragging ? 'hidden' : 'visible' }}>
         {connectDragSource(<div><ToolbarHandle /></div>)}
         <ToolbarItem onAddField={this.props.onAddField} fieldTemplate={template1}>Text</ToolbarItem>
         <ToolbarItem onAddField={this.props.onAddField} fieldTemplate={template2}>Checkbox</ToolbarItem>
