@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
+import { Provider } from 'react-redux'
 import { injectGlobal } from 'styled-components'
 import { DragDropContextProvider } from 'react-dnd'
 import Html5Backend from 'react-dnd-html5-backend'
 
+import store from './store'
+
 import Page from './components/Page'
 import Workspace from './components/Workspace'
-import Toolbar from './components/Toolbar'
+import Toolbar from './components/DraggableToolbar'
 import FieldMarker from './components/FieldMarker';
 
 injectGlobal`
@@ -18,11 +21,7 @@ injectGlobal`
 
 class App extends Component {
   state = {
-    fields: [],
-    toolbar: {
-      top: 20,
-      left: 20
-    }
+    fields: []
   }
 
   nextId = 1
@@ -56,27 +55,20 @@ class App extends Component {
     })
   }
 
-  handleToolbarMove = dest => {
-    this.setState({
-      toolbar: {
-        top: dest.top,
-        left: dest.left
-      }
-    })
-  }
-
   render() {
     return (
-      <DragDropContextProvider backend={Html5Backend}>
-        <Workspace>
-          <Page page={{ id: 1 }}>
-            {this.state.fields.map((field) => (
-              <FieldMarker onMoveField={this.handleMoveField} key={field.fieldId} {...field} />
-            ))}
-          </Page>
-          <Toolbar top={this.state.toolbar.top} left={this.state.toolbar.left} onAddField={this.handleAddField} onMove={this.handleToolbarMove} />
-        </Workspace>
-      </DragDropContextProvider>
+      <Provider store={store}>
+        <DragDropContextProvider backend={Html5Backend}>
+          <Workspace>
+            <Page page={{ id: 1 }}>
+              {this.state.fields.map((field) => (
+                <FieldMarker onMoveField={this.handleMoveField} key={field.fieldId} {...field} />
+              ))}
+            </Page>
+            <Toolbar onAddField={this.handleAddField} />
+          </Workspace>
+        </DragDropContextProvider>
+      </Provider>
     );
   }
 }
