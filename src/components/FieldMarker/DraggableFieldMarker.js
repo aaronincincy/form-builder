@@ -1,22 +1,8 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
-import { DragSource } from 'react-dnd';
+import { DragSource } from 'react-dnd'
+import FieldMarker from './FieldMarker'
 
-const FieldMarker = styled.div`
-  position: absolute;
-  top: ${props => props.top}px;
-  left: ${props => props.left}px;
-  width: ${props => props.width}px;
-  height: ${props => props.height}px;
-  background: lightblue;
-  opacity: .5;
-  visibility: ${props => props.isDragging ? 'hidden' : 'visible'};
-
-  ${props => props.selected && css`
-    outline: 1px solid darkblue;
-  `}
-`
-const fieldSource = {
+const dragSourceEvents = {
   beginDrag: (props) => {
     return {
       fieldId: props.fieldId
@@ -41,7 +27,7 @@ class DraggableFieldMarker extends React.Component {
     )
   }
 }
-export default DragSource('field', fieldSource, (connect, monitor) => ({
+export default DragSource('field', dragSourceEvents, (connect, monitor) => ({
   connectDragSource: connect.dragSource(),
   isDragging: monitor.isDragging()
 }))(DraggableFieldMarker)

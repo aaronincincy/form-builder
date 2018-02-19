@@ -1,0 +1,1 @@
+export const MOVE_TOOLBAR = 'MOVE_TOOLBAR'

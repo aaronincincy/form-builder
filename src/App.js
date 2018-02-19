@@ -8,7 +8,7 @@ import store from './store'
 
 import Page from './components/Page'
 import Workspace from './components/Workspace'
-import Toolbar from './components/DraggableToolbar'
+import Toolbar from './components/Toolbar'
 import FieldMarker from './components/FieldMarker';
 
 injectGlobal`
