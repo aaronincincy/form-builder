@@ -13,6 +13,7 @@ const FieldMarker = styled.div`
 
   ${props => props.selected && css`
     border: 1px solid darkblue;
+    z-index: 10000;
   `}
 `
 

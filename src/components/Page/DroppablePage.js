@@ -8,6 +8,9 @@ import { fieldsForPage } from './selectors'
 import { moveField, selectField } from './actions'
 
 const dropTargetEvents = {
+  hover: (props, monitor, component) => {
+    console.log('hovering')
+  },
   drop: (props, monitor, component) => {
     const { left: offsetLeft, top: offsetTop } = component.pageRef.getBoundingClientRect()
     const { x: left, y: top } = monitor.getClientOffset()
@@ -33,7 +36,9 @@ class DroppablePage extends React.Component {
   }
 
   handleSelectField = fieldId => e => {
-    this.props.onSelectField(fieldId)
+    if (fieldId !== this.props.selectedField) {
+      this.props.onSelectField(fieldId)
+    }
     e.stopPropagation()
   }
 
