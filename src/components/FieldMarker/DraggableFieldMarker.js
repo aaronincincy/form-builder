@@ -14,7 +14,10 @@ const dragSourceEvents = {
     const dropResult = monitor.getDropResult()
 
     if (dropResult) {
-      props.onMoveField(fieldId, dropResult)
+      props.onMoveField(fieldId, {
+        offsetTop: dropResult.offset.top,
+        offsetLeft: dropResult.offset.left
+      })
     }
   },
 }

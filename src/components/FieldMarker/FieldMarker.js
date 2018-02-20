@@ -8,10 +8,11 @@ const FieldMarker = styled.div`
   height: ${props => props.height}px;
   background: lightblue;
   opacity: .5;
+  box-sizing: border-box;
   visibility: ${props => props.isDragging ? 'hidden' : 'visible'};
 
   ${props => props.selected && css`
-    outline: 1px solid darkblue;
+    border: 1px solid darkblue;
   `}
 `
 

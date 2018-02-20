@@ -1,24 +1,16 @@
 import { combineReducers } from 'redux';
 
 import toolbar from './components/Toolbar/reducer'
+import field from './components/Page/reducer'
+import { SELECT_FIELD } from './components/Page/actionTypes';
+import { ADD_FIELD } from './components/Toolbar/actionTypes';
 
-
-const field = (state = {}, action) => {
+const selectedField = (state = null, action) => {
   switch (action.type) {
-    case 'ADD_FIELD':
-      return {
-        ...state,
-        [action.payload.fieldId]: action.payload
-      }
-    case 'MOVE_FIELD':
-      return {
-        ...state,
-        [action.payload.fieldId]: {
-          ...state[action.payload.fieldId],
-          top: action.payload.top,
-          left: action.payload.left
-        }
-      }
+    case SELECT_FIELD:
+      return action.payload
+    case ADD_FIELD:
+      return action.payload.fieldId
     default:
       return state
   }
@@ -26,6 +18,7 @@ const field = (state = {}, action) => {
 
 export default combineReducers({
   toolbar,
-  field
+  field,
+  selectedField
 })
 

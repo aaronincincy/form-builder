@@ -1,6 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
+import { connect } from 'react-redux'
 import { DragSource } from 'react-dnd'
+
+import { addField } from './actions'
 
 const ToolbarItem = styled.div`
   padding: 5px;
@@ -27,7 +30,17 @@ const templateSource = {
     const dropResult = monitor.getDropResult()
 
     if (dropResult) {
-      props.onAddField(item, dropResult)
+      props.onAddField({
+        template: item.template.type,
+        position: {
+          top: dropResult.position.top - item.template.height / 2,
+          left: dropResult.position.left - item.template.width / 2,
+        },
+        size: {
+          width: item.template.width,
+          height: item.template.height
+        }
+      })
     }
   },
 }
@@ -36,6 +49,10 @@ const DraggableToolbarItem = ({ connectDragSource, ...rest }) => (
   <ToolbarItem innerRef={r => connectDragSource(r)} {...rest} />
 )
 
-export default DragSource("fieldTemplate", templateSource, (connect, monitor) => ({
+const makeDraggable = DragSource("fieldTemplate", templateSource, (connect, monitor) => ({
   connectDragSource: connect.dragSource()
-}))(DraggableToolbarItem)
+}))
+
+const connectToStore = connect(null, { onAddField: addField })
+
+export default connectToStore(makeDraggable(DraggableToolbarItem))
