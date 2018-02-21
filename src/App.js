@@ -53,12 +53,19 @@ const Header = styled.header`
   }
 `
 
+const BaseApp = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`
+
 class App extends Component {
   render() {
     return (
       <Provider store={store}>
         <DragDropContextProvider backend={Html5Backend}>
-          <React.Fragment>
+          <BaseApp>
             <Header>
               <h1>E-Z Form Builder v0.1</h1>
             </Header>
@@ -79,14 +86,13 @@ class App extends Component {
               <Sidebar right>
                 <Sidebar.Panel title="Field Settings" defaultExpanded>
                   Stuff
-              </Sidebar.Panel>
-
+                </Sidebar.Panel>
                 <Sidebar.Panel title="Advanced">
                   Stuff
-              </Sidebar.Panel>
+                </Sidebar.Panel>
               </Sidebar>
             </Workspace>
-          </React.Fragment>
+          </BaseApp>
         </DragDropContextProvider>
       </Provider>
     );

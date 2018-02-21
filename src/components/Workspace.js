@@ -5,8 +5,7 @@ import { DropTarget } from 'react-dnd';
 const Workspace = styled.div`
   background: lightgray;
   padding: 20px;
-  width: 100%;
-  height: 100%;
+  flex: 1 1 auto;
   box-sizing: border-box;
   position: relative;
 `

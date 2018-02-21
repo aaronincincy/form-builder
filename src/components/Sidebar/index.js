@@ -44,12 +44,18 @@ const Toggle = styled.div`
   text-align: center;
   display: flex;
   align-items: center;
-
+  
   ${hoverHightlight}
 
   ${props => props.right && css`
     order: 2;
+    border-left: 1px solid #b4b4b4;
   `}
+
+  ${props => !props.right && css`
+    border-right: 1px solid #b4b4b4;
+  `}
+
 `
 
 class ExpandableSidebar extends React.Component {
@@ -58,7 +64,9 @@ class ExpandableSidebar extends React.Component {
     open: false
   }
 
-  handleMouseOver = () => {
+
+
+  handleMouseEnter = () => {
     this.setState({
       open: true
     })
@@ -66,7 +74,8 @@ class ExpandableSidebar extends React.Component {
     window.clearTimeout(this.timeout)
   }
 
-  handleMouseOut = () => {
+  handleMouseLeave = () => {
+    console.log('out')
     this.timeout = window.setTimeout(() => {
       this.setState(state => ({
         open: state.pinned
@@ -77,7 +86,8 @@ class ExpandableSidebar extends React.Component {
   togglePinned = () => {
     this.setState(state => {
       return {
-        pinned: !state.pinned
+        pinned: !state.pinned,
+        open: !state.pinned
       }
     })
   }
@@ -85,7 +95,7 @@ class ExpandableSidebar extends React.Component {
 
   render() {
     return (
-      <Sidebar {...this.props} onMouseOut={this.handleMouseOut} onMouseOver={this.handleMouseOver} >
+      <Sidebar {...this.props} onMouseLeave={this.handleMouseLeave} onMouseEnter={this.handleMouseEnter} >
         <Toggle right={this.props.right} onClick={this.togglePinned}>
           {this.props.right && (this.state.pinned ? <RightArrow /> : <LeftArrow />)}
           {!this.props.right && (this.state.pinned ? <LeftArrow /> : <RightArrow />)}
