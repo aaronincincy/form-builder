@@ -10,23 +10,35 @@ import Workspace from './components/Workspace'
 import Toolbar from './components/Toolbar'
 import Sidebar from './components/Sidebar';
 
-const template1 = {
+const textBox = {
   width: 100,
-  height: 30,
+  height: 24,
   type: 'text'
 }
 
-const template2 = {
-  width: 30,
-  height: 30,
+const checkbox = {
+  width: 20,
+  height: 20,
   type: 'checkbox'
 }
 
+const boundField = to => {
+  return {
+    width: 100,
+    height: 25,
+    type: 'text',
+    boundto: to
+  }
+}
+
 injectGlobal`
+  @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+
   body, html, #root {
     margin: 0;
     padding: 0;
     height: 100%;
+    font-family: 'Roboto Condensed', sans-serif;
   }
 `
 
@@ -38,15 +50,25 @@ class App extends Component {
           <Workspace>
             <Page page={{ id: 1 }} />
             <Sidebar>
-              <Sidebar.Panel>
-                <Toolbar>
-                  <Toolbar.Item fieldTemplate={template1}>Text</Toolbar.Item>
-                  <Toolbar.Item fieldTemplate={template2}>Checkbox</Toolbar.Item>
-                </Toolbar>
+              <Sidebar.Panel title="Quick Fields" defaultExpanded>
+                <Toolbar fieldTemplate={boundField('firstName')}>First Name</Toolbar>
+                <Toolbar fieldTemplate={boundField('lastName')}>Last Name</Toolbar>
+                <Toolbar fieldTemplate={boundField('emailAddress')}>Email Address</Toolbar>
+                <Toolbar fieldTemplate={boundField('homePhone')}>Home Phone</Toolbar>
+              </Sidebar.Panel>
+              <Sidebar.Panel title="Basic Fields">
+                <Toolbar fieldTemplate={textBox}>Text Box</Toolbar>
+                <Toolbar fieldTemplate={checkbox}>Checkbox</Toolbar>
               </Sidebar.Panel>
             </Sidebar>
             <Sidebar right>
-              <Sidebar.Panel />
+              <Sidebar.Panel title="Field Settings" defaultExpanded>
+                Stuff
+              </Sidebar.Panel>
+
+              <Sidebar.Panel title="Advanced">
+                Stuff
+              </Sidebar.Panel>
             </Sidebar>
           </Workspace>
         </DragDropContextProvider>

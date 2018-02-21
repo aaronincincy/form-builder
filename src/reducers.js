@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 
-import toolbar from './components/Toolbar/reducer'
 import field from './components/Page/reducer'
 import { SELECT_FIELD } from './components/Page/actionTypes';
 import { ADD_FIELD } from './components/Toolbar/actionTypes';
@@ -17,7 +16,6 @@ const selectedField = (state = null, action) => {
 }
 
 export default combineReducers({
-  toolbar,
   field,
   selectedField
 })

@@ -2,7 +2,8 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import LeftIcon from 'react-icons/lib/fa/caret-left'
 import RightIcon from 'react-icons/lib/fa/caret-right'
-
+import SubPanel from './SubPanel'
+import { hoverHightlight } from '../../styles';
 
 const LeftArrow = styled(LeftIcon) ``
 const RightArrow = styled(RightIcon) ``
@@ -12,6 +13,7 @@ const PanelContainer = styled.div`
   overflow-x: hidden;
   overflow-y: auto;
   transition: width 100ms;
+  flex: 0 1 auto;
 
   ${props => props.open && css`
     width: 300px;
@@ -23,6 +25,8 @@ const Sidebar = styled.div`
   top:0;
   bottom: 0;
   background: #333;
+  display: flex;
+  align-items: stretch;
   ${props => props.right ?
     css`
       right: 0;
@@ -35,36 +39,17 @@ const Sidebar = styled.div`
 `
 
 const Toggle = styled.div`
-  position: absolute;
-  top: 0;
-  bottom: 0;
   background: black;
-  color: silver;
   font-size: 20px;
   text-align: center;
   display: flex;
   align-items: center;
 
-  ${props => props.right ?
-    css`
-      right: 0;
-    `
-    :
-    css`
-      left: 0;
-    `
-  }
+  ${hoverHightlight}
 
-  &:hover ${LeftArrow}, &:hover ${RightArrow} {
-    transition: color 100ms;
-    color:white;
-  }
-`
-
-const Panel = styled.div`
-  width: 300px;
-  background: darkred;
-  min-height:100px;
+  ${props => props.right && css`
+    order: 2;
+  `}
 `
 
 class ExpandableSidebar extends React.Component {
@@ -77,12 +62,16 @@ class ExpandableSidebar extends React.Component {
     this.setState({
       open: true
     })
+
+    window.clearTimeout(this.timeout)
   }
 
   handleMouseOut = () => {
-    this.setState(state => ({
-      open: state.pinned
-    }))
+    this.timeout = window.setTimeout(() => {
+      this.setState(state => ({
+        open: state.pinned
+      }))
+    }, 750)
   }
 
   togglePinned = () => {
@@ -109,6 +98,6 @@ class ExpandableSidebar extends React.Component {
   }
 }
 
-ExpandableSidebar.Panel = Panel
+ExpandableSidebar.Panel = SubPanel
 
 export default ExpandableSidebar

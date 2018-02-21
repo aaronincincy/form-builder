@@ -9,9 +9,7 @@ const ToolbarItem = styled.div`
   padding: 5px;
   cursor: pointer;
   user-select: none;
-  font-family: sans-serif;
-  font-size: 12px;
-  font-weight: bold;
+  font-size: 16px;
 
   &:hover {
     background: lightgray;
