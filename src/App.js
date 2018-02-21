@@ -7,29 +7,10 @@ import Html5Backend from 'react-dnd-html5-backend'
 import store from './store'
 import Page from './components/Page'
 import Workspace from './components/Workspace'
-import Toolbar from './components/Toolbar'
-import Sidebar from './components/Sidebar';
+import { LeftSidebar, RightSidebar } from './components/Sidebar';
+import Footer from './Footer'
 
-const textBox = {
-  width: 100,
-  height: 24,
-  type: 'text'
-}
 
-const checkbox = {
-  width: 20,
-  height: 20,
-  type: 'checkbox'
-}
-
-const boundField = to => {
-  return {
-    width: 100,
-    height: 25,
-    type: 'text',
-    boundto: to
-  }
-}
 
 injectGlobal`
   @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
@@ -53,12 +34,23 @@ const Header = styled.header`
   }
 `
 
+Header.displayName = 'Header'
+
 const BaseApp = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
 `
+
+const Area = styled.div`
+  height: 100%;
+  position: relative;
+  flex: 1 1 auto;
+  display: flex;
+`
+
+Area.displayName = 'Area'
 
 class App extends Component {
   render() {
@@ -67,36 +59,23 @@ class App extends Component {
         <DragDropContextProvider backend={Html5Backend}>
           <BaseApp>
             <Header>
-              <h1>E-Z Form Builder v0.1</h1>
+              <h1>Form Builder v0.1</h1>
             </Header>
-            <Workspace>
-              <Page page={{ id: 1 }} />
-              <Sidebar>
-                <Sidebar.Panel title="Quick Fields" defaultExpanded>
-                  <Toolbar fieldTemplate={boundField('firstName')}>First Name</Toolbar>
-                  <Toolbar fieldTemplate={boundField('lastName')}>Last Name</Toolbar>
-                  <Toolbar fieldTemplate={boundField('emailAddress')}>Email Address</Toolbar>
-                  <Toolbar fieldTemplate={boundField('homePhone')}>Home Phone</Toolbar>
-                </Sidebar.Panel>
-                <Sidebar.Panel title="Basic Fields">
-                  <Toolbar fieldTemplate={textBox}>Text Box</Toolbar>
-                  <Toolbar fieldTemplate={checkbox}>Checkbox</Toolbar>
-                </Sidebar.Panel>
-              </Sidebar>
-              <Sidebar right>
-                <Sidebar.Panel title="Field Settings" defaultExpanded>
-                  Stuff
-                </Sidebar.Panel>
-                <Sidebar.Panel title="Advanced">
-                  Stuff
-                </Sidebar.Panel>
-              </Sidebar>
-            </Workspace>
+            <Area>
+              <Workspace>
+                <Page page={{ id: 1 }} />
+              </Workspace>
+              <LeftSidebar />
+              <RightSidebar />
+            </Area>
+            <Footer>
+              <Footer.Button>Save Changes</Footer.Button>
+            </Footer>
           </BaseApp>
         </DragDropContextProvider>
       </Provider>
-    );
+    )
   }
 }
 
-export default App;
+export default App

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { compose, withHandlers, withState } from 'recompose';
-import { hoverHightlight } from '../../styles';
+import { hoverHighlight } from '../style';
 import OpenIcon from 'react-icons/lib/fa/angle-down'
 import ClosedIcon from 'react-icons/lib/fa/angle-right'
 
@@ -11,11 +11,11 @@ const Title = styled.div`
   font-size:18px;
   margin-bottom:8px;
   user-select: none;
-  ${hoverHightlight}
+  ${hoverHighlight}
 `
 
 
-const SubPanelContents = styled.div`
+const DrawerContents = styled.div`
   background: #4f4f4f;
   border: 1px inset gray;
 `
@@ -33,19 +33,19 @@ const toggleable = (propName) => compose(
   })
 )
 
-class SubPanel extends React.Component {
+class SidebarDrawer extends React.Component {
   render() {
     return (
       <div className={this.props.className}>
         <Title onClick={this.props.toggle}>{this.props.expanded ? <OpenIcon /> : <ClosedIcon />} {this.props.title}</Title>
-        {this.props.expanded && <SubPanelContents>{this.props.children}</SubPanelContents>}
+        {this.props.expanded && <DrawerContents>{this.props.children}</DrawerContents>}
       </div>
     )
   }
 }
 
-const StyledSubPanel = styled(SubPanel) `
+const StyledDrawer = styled(SidebarDrawer) `
   margin: 8px;
 `
 
-export default toggleable('expanded')(StyledSubPanel)
+export default toggleable('expanded')(StyledDrawer)

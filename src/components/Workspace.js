@@ -5,9 +5,10 @@ import { DropTarget } from 'react-dnd';
 const Workspace = styled.div`
   background: lightgray;
   padding: 20px;
-  flex: 1 1 auto;
+  flex: 1 0 auto;
   box-sizing: border-box;
   position: relative;
+  overflow: auto;
 `
 
 Workspace.displayName = "Workspace"
