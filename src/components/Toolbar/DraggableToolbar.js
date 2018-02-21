@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import Toolbar from './Toolbar'
 import { moveToolbar } from './actions';
 
-const dragSource = {
+const dragSourceEvents = {
   beginDrag: (props, monitor) => {
     return {}
   },
@@ -28,7 +28,7 @@ class DraggableToolbar extends React.Component {
   }
 }
 
-const makeDraggable = DragSource("toolbar", dragSource, (connect, monitor) => ({
+const makeDraggable = DragSource("toolbar", dragSourceEvents, (connect, monitor) => ({
   connectDragSource: connect.dragSource(),
   connectDragPreview: connect.dragPreview(),
   isDragging: monitor.isDragging(),

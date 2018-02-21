@@ -8,6 +8,7 @@ import store from './store'
 import Page from './components/Page'
 import Workspace from './components/Workspace'
 import Toolbar from './components/Toolbar'
+import Sidebar from './components/Sidebar';
 
 const template1 = {
   width: 100,
@@ -36,10 +37,17 @@ class App extends Component {
         <DragDropContextProvider backend={Html5Backend}>
           <Workspace>
             <Page page={{ id: 1 }} />
-            <Toolbar>
-              <Toolbar.Item fieldTemplate={template1}>Text</Toolbar.Item>
-              <Toolbar.Item fieldTemplate={template2}>Checkbox</Toolbar.Item>
-            </Toolbar>
+            <Sidebar>
+              <Sidebar.Panel>
+                <Toolbar>
+                  <Toolbar.Item fieldTemplate={template1}>Text</Toolbar.Item>
+                  <Toolbar.Item fieldTemplate={template2}>Checkbox</Toolbar.Item>
+                </Toolbar>
+              </Sidebar.Panel>
+            </Sidebar>
+            <Sidebar right>
+              <Sidebar.Panel />
+            </Sidebar>
           </Workspace>
         </DragDropContextProvider>
       </Provider>
