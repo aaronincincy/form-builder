@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import { injectGlobal } from 'styled-components'
+import styled, { injectGlobal } from 'styled-components'
 import { DragDropContextProvider } from 'react-dnd'
 import Html5Backend from 'react-dnd-html5-backend'
 
@@ -42,35 +42,51 @@ injectGlobal`
   }
 `
 
+const Header = styled.header`
+  background: black;
+  color: #b4b4b4;
+  padding: 20px;
+
+  & h1{
+    margin: 0;
+  font-weight:normal;
+  }
+`
+
 class App extends Component {
   render() {
     return (
       <Provider store={store}>
         <DragDropContextProvider backend={Html5Backend}>
-          <Workspace>
-            <Page page={{ id: 1 }} />
-            <Sidebar>
-              <Sidebar.Panel title="Quick Fields" defaultExpanded>
-                <Toolbar fieldTemplate={boundField('firstName')}>First Name</Toolbar>
-                <Toolbar fieldTemplate={boundField('lastName')}>Last Name</Toolbar>
-                <Toolbar fieldTemplate={boundField('emailAddress')}>Email Address</Toolbar>
-                <Toolbar fieldTemplate={boundField('homePhone')}>Home Phone</Toolbar>
-              </Sidebar.Panel>
-              <Sidebar.Panel title="Basic Fields">
-                <Toolbar fieldTemplate={textBox}>Text Box</Toolbar>
-                <Toolbar fieldTemplate={checkbox}>Checkbox</Toolbar>
-              </Sidebar.Panel>
-            </Sidebar>
-            <Sidebar right>
-              <Sidebar.Panel title="Field Settings" defaultExpanded>
-                Stuff
+          <React.Fragment>
+            <Header>
+              <h1>E-Z Form Builder v0.1</h1>
+            </Header>
+            <Workspace>
+              <Page page={{ id: 1 }} />
+              <Sidebar>
+                <Sidebar.Panel title="Quick Fields" defaultExpanded>
+                  <Toolbar fieldTemplate={boundField('firstName')}>First Name</Toolbar>
+                  <Toolbar fieldTemplate={boundField('lastName')}>Last Name</Toolbar>
+                  <Toolbar fieldTemplate={boundField('emailAddress')}>Email Address</Toolbar>
+                  <Toolbar fieldTemplate={boundField('homePhone')}>Home Phone</Toolbar>
+                </Sidebar.Panel>
+                <Sidebar.Panel title="Basic Fields">
+                  <Toolbar fieldTemplate={textBox}>Text Box</Toolbar>
+                  <Toolbar fieldTemplate={checkbox}>Checkbox</Toolbar>
+                </Sidebar.Panel>
+              </Sidebar>
+              <Sidebar right>
+                <Sidebar.Panel title="Field Settings" defaultExpanded>
+                  Stuff
               </Sidebar.Panel>
 
-              <Sidebar.Panel title="Advanced">
-                Stuff
+                <Sidebar.Panel title="Advanced">
+                  Stuff
               </Sidebar.Panel>
-            </Sidebar>
-          </Workspace>
+              </Sidebar>
+            </Workspace>
+          </React.Fragment>
         </DragDropContextProvider>
       </Provider>
     );

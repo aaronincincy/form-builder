@@ -36,8 +36,8 @@ const toggleable = (propName) => compose(
 class SubPanel extends React.Component {
   render() {
     return (
-      <div onClick={this.props.toggle} className={this.props.className}>
-        <Title>{this.props.expanded ? <OpenIcon /> : <ClosedIcon />} {this.props.title}</Title>
+      <div className={this.props.className}>
+        <Title onClick={this.props.toggle}>{this.props.expanded ? <OpenIcon /> : <ClosedIcon />} {this.props.title}</Title>
         {this.props.expanded && <SubPanelContents>{this.props.children}</SubPanelContents>}
       </div>
     )

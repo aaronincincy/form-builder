@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { DragSource } from 'react-dnd'
 
 import { addField } from './actions'
+import Marker from '../FieldMarker/FieldMarker'
 
 const ToolbarItem = styled.div`
   padding: 5px;
@@ -43,7 +44,8 @@ const templateSource = {
   },
 }
 
-const DraggableToolbarItem = ({ connectDragSource, ...rest }) => (
+const DraggableToolbarItem = ({ connectDragSource, connectDragPreview, ...rest }) => (
+
   <ToolbarItem innerRef={r => connectDragSource(r)} {...rest} />
 )
 

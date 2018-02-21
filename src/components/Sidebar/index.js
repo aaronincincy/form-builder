@@ -71,7 +71,7 @@ class ExpandableSidebar extends React.Component {
       this.setState(state => ({
         open: state.pinned
       }))
-    }, 750)
+    }, 600)
   }
 
   togglePinned = () => {
